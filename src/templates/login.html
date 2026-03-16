@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block head %}{% endblock %}
+{% block content %}
+<div class="auth-wrapper">
+    <form action="/login" method="post">
+        <div class="auth-block">
+            <h1 id="login">Đăng nhập</h1>
+            <p>Mừng bạn quay trở lại!</p>
+        </div>
+        <div class="auth-block"><label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Email">
+        </div>
+        <div class="auth-block"><label for="password">Mật khẩu</label>
+            <input type="password" name="password" id="password" placeholder="Mật khẩu">
+        </div>
+        <div class="auth-block"> <button type="submit" id="login-btn">Đăng nhập</button>
+        </div>
+        <div class="auth-block btn-turn-page"> <a href="{{url_for('auth_bp.signup')}}">Tạo tài khoản mới</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+{% block script %}{% endblock %}
