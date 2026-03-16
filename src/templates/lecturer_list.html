@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block title %}Danh sách Giảng viên{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Danh sách Giảng viên</h2>
+
+  {# ── Form tìm kiếm & lọc ── #}
+  <form method="GET" action="/lecturer" class="row g-2 mb-4">
+    {# Ô tìm kiếm #}
+    <div class="col-md-5">
+      <input type="text" name="q" class="form-control"
+             placeholder="Tìm theo tên, email..."
+             value="{{ q }}">
+    </div>
+
+    {# Lọc theo đơn vị #}
+    <div class="col-md-3">
+      <select name="don_vi" class="form-select">
+        <option value="">-- Tất cả đơn vị --</option>
+        {% for dv in don_vis %}
+          <option value="{{ dv.id_don_vi }}"
+            {% if sel_don_vi == dv.id_don_vi|string %}selected{% endif %}>
+            {{ dv.ten_don_vi }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    {# Lọc theo học vị #}
+    <div class="col-md-2">
+      <select name="hoc_vi" class="form-select">
+        <option value="">-- Học vị --</option>
+        {% for hv in hoc_vis %}
+          <option value="{{ hv }}"
+            {% if sel_hoc_vi == hv %}selected{% endif %}>
+            {{ hv }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+    </div>
+  </form>
+
+  {# ── Kết quả ── #}
+  {% if can_bos %}
+    <p class="text-muted">Tìm thấy {{ pagination.total }} giảng viên</p>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      {% for cb in can_bos %}
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          {# Avatar #}
+          {% if cb.avatar %}
+            <img src="{{ cb.avatar }}" class="card-img-top"
+                 style="height:200px; object-fit:cover;"
+                 alt="{{ cb.ten }}">
+          {% else %}
+            <div class="bg-secondary text-white d-flex align-items-center
+                        justify-content-center" style="height:200px; font-size:3rem;">
+              {{ cb.ten[0] }}
+            </div>
+          {% endif %}
+
+          <div class="card-body">
+            <h5 class="card-title">
+              {% if cb.hoc_vi %}
+                <span class="badge bg-primary me-1">{{ cb.hoc_vi }}</span>
+              {% endif %}
+              {{ cb.ten }}
+            </h5>
+            <p class="card-text text-muted small">
+              <i class="bi bi-building"></i> {{ cb.don_vi.ten_don_vi }}
+            </p>
+            {% if cb.email %}
+              <p class="card-text small">
+                <i class="bi bi-envelope"></i> {{ cb.email }}
+              </p>
+            {% endif %}
+          </div>
+
+          <div class="card-footer bg-transparent">
+            <a href="/lecturer/{{ cb.slug }}" class="btn btn-outline-primary btn-sm w-100">
+              Xem chi tiết
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {# ── Phân trang ── #}
+    {% if pagination.pages > 1 %}
+    <nav class="mt-4">
+      <ul class="pagination justify-content-center">
+        {% if pagination.has_prev %}
+          <li class="page-item">
+            <a class="page-link"
+               href="?q={{ q }}&don_vi={{ sel_don_vi }}&hoc_vi={{ sel_hoc_vi }}&page={{ pagination.prev_num }}">
+              &laquo;
+            </a>
+          </li>
+        {% endif %}
+
+        {% for p in pagination.iter_pages() %}
+          {% if p %}
+            <li class="page-item {% if p == pagination.page %}active{% endif %}">
+              <a class="page-link"
+                 href="?q={{ q }}&don_vi={{ sel_don_vi }}&hoc_vi={{ sel_hoc_vi }}&page={{ p }}">
+                {{ p }}
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled"><span class="page-link">...</span></li>
+          {% endif %}
+        {% endfor %}
+
+        {% if pagination.has_next %}
+          <li class="page-item">
+            <a class="page-link"
+               href="?q={{ q }}&don_vi={{ sel_don_vi }}&hoc_vi={{ sel_hoc_vi }}&page={{ pagination.next_num }}">
+              &raquo;
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% endif %}
+
+  {% else %}
+    <div class="alert alert-warning">
+      Không tìm thấy giảng viên phù hợp.
+      <a href="/lecturer">Xem tất cả</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
