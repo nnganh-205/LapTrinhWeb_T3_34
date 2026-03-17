@@ -10,10 +10,10 @@ def create_app():
     DB_NAME = os.getenv('DB_NAME')
     app.config['SECRET_KEY'] = SECRET_KEY
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    from .models import User
     db.init_app(app)
     if not os.path.exists(f'instance/{DB_NAME}'):
         with app.app_context():
+            from .models import User, ToChuc, DonVi, CanBo, TaiKhoan, QuaTrinhDaoTao, QuaTrinhCongTac, GiangDay, LinhVucNghienCuu, CongTrinhNghienCuu
             db.create_all()
     from .user import user_bp
     from .auth_user import auth

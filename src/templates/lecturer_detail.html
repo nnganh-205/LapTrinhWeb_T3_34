@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{{ can_bo.hoc_vi }} {{ can_bo.ten }}</title>{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+  {# ── Header: ảnh + thông tin cơ bản ── #}
+  <div class="row mb-4">
+    <div class="col-md-3 text-center">
+      {% if can_bo.avatar %}
+      <img src="{{ can_bo.avatar }}" class="img-fluid rounded shadow" style="max-height:250px; object-fit:cover;"
+        alt="{{ can_bo.ten }}">
+      {% else %}
+      <div class="bg-secondary text-white rounded d-flex align-items-center
+                    justify-content-center mx-auto" style="width:180px; height:220px; font-size:4rem;">
+        {{ can_bo.ten[0] }}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="col-md-9">
+      <h2>
+        {% if can_bo.hoc_vi %}<span class="text-primary">{{ can_bo.hoc_vi }}</span>{% endif %}
+        {{ can_bo.ten | upper }}
+      </h2>
+      <p class="text-muted">{{ can_bo.don_vi.ten_don_vi }}</p>
+
+      <hr>
+
+      {# Liên hệ #}
+      <h5 class="text-warning fw-bold">LIÊN HỆ</h5>
+      {% if can_bo.sdt %}
+      <p><i class="bi bi-telephone"></i> {{ can_bo.sdt }}</p>
+      {% endif %}
+      {% if can_bo.email %}
+      <p><i class="bi bi-envelope"></i>
+        <a href="mailto:{{ can_bo.email }}">{{ can_bo.email }}</a>
+      </p>
+      {% endif %}
+    </div>
+  </div>
+
+  {# ── GIỚI THIỆU: Đào tạo + Công tác ── #}
+  {% if dao_taos or cong_tacs %}
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="text-warning fw-bold">GIỚI THIỆU</h5>
+
+      {% if dao_taos %}
+      <p class="fw-semibold mb-1">Quá trình đào tạo:</p>
+      <ul class="list-unstyled ms-2">
+        {% for dt in dao_taos %}
+        <li>
+          - {% if dt.nam_bat_dau %}{{ dt.nam_bat_dau }}{% endif %}
+          {% if dt.nam_bat_dau and dt.nam_ket_thuc %} - {% endif %}
+          {% if dt.nam_ket_thuc %}{{ dt.nam_ket_thuc }}{% endif %}:
+          {{ dt.bac_dao_tao }} {{ dt.chuyen_nganh }},
+          <em>{{ dt.ten_to_chuc }}</em>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      {% if cong_tacs %}
+      <p class="fw-semibold mb-1 mt-2">Quá trình công tác:</p>
+      <ul class="list-unstyled ms-2">
+        {% for ct in cong_tacs %}
+        <li>
+          - Từ {{ ct.tu_nam }}/{{ ct.tu_nam }}
+          {% if ct.den_nam %} – {{ ct.den_nam }}{% else %} – nay{% endif %}:
+          {{ ct.chuc_vu }}, <em>{{ ct.ten_to_chuc }}</em>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  {# ── GIẢNG DẠY ── #}
+  {% if giang_days %}
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="text-warning fw-bold">GIẢNG DẠY</h5>
+      <ul>
+        {% for gd in giang_days %}
+        <li>{{ gd.ten_mon }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+  {# ── LĨNH VỰC NGHIÊN CỨU ── #}
+  {% if linh_vucs %}
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="text-warning fw-bold">LĨNH VỰC NGHIÊN CỨU</h5>
+      <ol>
+        {% for lv in linh_vucs %}
+        <li>{{ lv.ten_linh_vuc }}</li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  {% endif %}
+
+  {# ── CÔNG TRÌNH KHOA HỌC ── #}
+  {% if cong_trinhs %}
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="text-warning fw-bold">CÔNG TRÌNH KHOA HỌC</h5>
+      <ol>
+        {% for ct in cong_trinhs %}
+        <li class="mb-2">
+          {% if ct.loai_cong_trinh %}
+          <span class="badge bg-secondary me-1">{{ ct.loai_cong_trinh }}</span>
+          {% endif %}
+          {% if ct.nam_cong_bo %}
+          <span class="text-muted">({{ ct.nam_cong_bo }})</span>
+          {% endif %}
+          {{ ct.ten_cong_trinh }}
+          {% if ct.tap_chi %}
+          <br><small class="text-muted fst-italic">{{ ct.tap_chi }}</small>
+          {% endif %}
+          {% if ct.doi %}
+          <br><small>DOI:
+            <a href="https://doi.org/{{ ct.doi }}" target="_blank">{{ ct.doi }}</a>
+          </small>
+          {% endif %}
+          {% if ct.link %}
+          <br><a href="{{ ct.link }}" target="_blank" class="small">🔗 Xem bài báo</a>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  {% endif %}
+
+  <a href="/lecturer" class="btn btn-outline-secondary mb-4">
+    ← Quay lại danh sách
+  </a>
+
+</div>
+{% endblock %}
