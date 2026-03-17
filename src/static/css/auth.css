@@ -1,0 +1,95 @@
+/* Căn giữa toàn bộ form ra giữa màn hình */
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    /* Trừ đi chiều cao dự kiến của navbar */
+    background-color: #f4f7f6;
+    padding: 20px;
+}
+
+/* Khung của Form */
+.auth-wrapper form {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Các khối input và label */
+.auth-block {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-block h1 {
+    margin-bottom: 10px;
+    color: #2c3e50;
+    text-align: center;
+}
+
+.auth-block p {
+    color: #7f8c8d;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.auth-block label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #34495e;
+}
+
+/* Style cho Input */
+.auth-block input {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.auth-block input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+/* Style cho các Button Đăng nhập/Đăng ký */
+#login-btn,
+#signup-btn {
+    background-color: #3498db;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#login-btn:hover,
+#signup-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Link chuyển trang (Tạo tài khoản/Đã có tài khoản) */
+.btn-turn-page {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.btn-turn-page a {
+    color: #3498db;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.btn-turn-page a:hover {
+    text-decoration: underline;
+}

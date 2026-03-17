@@ -1,0 +1,179 @@
+/* Reset cơ bản */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    background-color: #2c3e50;
+    color: white;
+    padding: 0.5rem 2rem;
+    font-family: Arial, sans-serif;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ecf0f1;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+
+.nav-links li {
+    position: relative;
+    padding: 1rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #3498db;
+}
+
+/* Dropdown Logic */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.dropdown-content li {
+    padding: 0;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: #2c3e50;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Nút bấm nổi bật */
+.nav-btn {
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.signup {
+    background-color: #2ecc71;
+    color: white !important;
+}
+
+.signup:hover {
+    background-color: #27ae60;
+}
+
+.logout {
+    background-color: #e74c3c;
+    color: white !important;
+}
+
+.logout:hover {
+    background-color: #c0392b;
+}
+
+/* #region Container chứa các thông báo */
+#flash-messages {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 300px;
+}
+
+/* Style chung cho từng alert */
+.alert-alert-success,
+.alert-alert-danger,
+.alert-alert-warning,
+.alert-alert-info {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.5s ease-out forwards;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Màu sắc cho từng loại thông báo */
+.alert-alert-success {
+    background-color: #2ecc71;
+    border-left: 5px solid #27ae60;
+}
+
+/* Xanh lá */
+.alert-alert-danger {
+    background-color: #e74c3c;
+    border-left: 5px solid #c0392b;
+}
+
+/* Đỏ */
+.alert-alert-warning {
+    background-color: #f1c40f;
+    border-left: 5px solid #f39c12;
+    color: #333;
+}
+
+/* Vàng */
+.alert-alert-info {
+    background-color: #3498db;
+    border-left: 5px solid #2980b9;
+}
+
+/* Xanh dương */
+
+/* Hiệu ứng trượt từ phải sang trái */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* #endregion */

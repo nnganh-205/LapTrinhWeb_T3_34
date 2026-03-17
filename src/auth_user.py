@@ -22,7 +22,7 @@ def login():
             session.permanent = True
             session['user_id'] = user.id
             flash('Đăng nhập thành công! Chào mừng bạn quay lại.', 'success')
-            return redirect(url_for('main.index')) # Thay 'main.index' bằng trang chủ của m
+            return redirect(url_for('user.User')) 
         
         flash('Email hoặc mật khẩu không chính xác', 'danger')
         return redirect(url_for('auth_bp.login'))

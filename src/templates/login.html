@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-{% block head %}{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/auth.css')}}">
+{% endblock %}
 {% block content %}
 <div class="auth-wrapper">
     <form action="/login" method="post">

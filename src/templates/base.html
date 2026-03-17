@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     {% block head %}{% endblock %}
 </head>
 
@@ -19,7 +20,46 @@
     </div>
     {% endif %}
     {% endwith %}
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('user.User') }}" class="logo">Nhóm2</a>
+
+            <ul class="nav-links">
+                <li><a href="{{ url_for('user.User') }}">Home</a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Khoa ▼</a>
+                    <ul class="dropdown-content">
+                        <li><a href="{{ url_for('user.department', id=1) }}">Công nghệ thông tin</a></li>
+                        <li><a href="#">Kế toán</a></li>
+                        <li><a href="#">Quản trị kinh doanh</a></li>
+                    </ul>
+                </li>
+
+                {% if session.get('user_id') %}
+                <li><a href="{{ url_for('auth_bp.logout') }}" class="nav-btn logout">Đăng xuất</a></li>
+                {% else %}
+                <li><a href="{{ url_for('auth_bp.login') }}">Đăng nhập</a></li>
+                <li><a href="{{ url_for('auth_bp.signup') }}" class="nav-btn signup">Đăng ký</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
     {% block content %}{% endblock %}
+    <script>
+        // Tìm tất cả các thông báo flash
+        const messages = document.querySelectorAll('#flash-messages div');
+
+        messages.forEach(msg => {
+            // Sau 4 giây sẽ bắt đầu mờ dần và biến mất
+            setTimeout(() => {
+                msg.classList.add('fade-out');
+                setTimeout(() => {
+                    msg.remove();
+                }, 500); // Đợi hiệu ứng chuyển cảnh xong rồi xóa hẳn khỏi DOM
+            }, 4000);
+        });
+    </script>
     {% block script %}{% endblock %}
 </body>
 

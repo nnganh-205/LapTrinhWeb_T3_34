@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
-{% block head %}{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/auth.css')}}">
+
+{% endblock %}
 {% block content %}
 <div class="auth-wrapper">
     <form action="/signup" method="post">
@@ -16,7 +19,7 @@
         <div class="auth-block"> <label for="password">Mật khẩu</label>
             <input type="password" name="password" id="password" placeholder="Mật khẩu">
         </div>
-        <div class="auth-block"> <button type="button" id="signup-btn">Đăng ký</button>
+        <div class="auth-block"> <button type="submit" id="signup-btn">Đăng ký</button>
         </div>
         <div class="auth-block btn-turn-page"> <a href="{{url_for('auth_bp.login')}}">Đã có tài khoản?</a>
         </div>
